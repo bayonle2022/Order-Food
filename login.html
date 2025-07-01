@@ -193,7 +193,7 @@
 
 </style>
 <body>
-    <div class="container">
+    <form class="container">
         <div class="sign-up-page">
             <img src="/assets/images/WhatsApp Image 2025-05-21 at 14.08.14_c69d5989.jpg" alt="" width="20%" style="border-radius: 100%;">
             <fieldset>
@@ -226,6 +226,39 @@
                 <img src="/assets/images/WhatsApp Image 2025-05-21 at 14.08.14_c69d5989.jpg" alt="" width="40%" style="border-radius: 50%;">
             </div>
         </div>
-    </div>
+    </form>
+    <script>
+        document.querySelector('form').addEventListener('submit', async (e)=>{
+        e.preventDefault();
+
+        const formData =   new FormData(e.target);
+        const data =  Object.fromEntries(formData);
+        console.log(data)
+
+        try {
+             const response = await fetch('https://core.hisend.hunnovate.com/api/v1/projects/01jxj4dysa4mk23vyx92vgxh1t/auth/login?api_key=v2kLi82gZF8ROPq0bbkhILnK', 
+            {
+                headers : {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(data)
+            }
+        );
+         const jsonData = await response.json();
+         console.log(jsonData);
+         
+        alert('Logged in successfully');
+        window.location.href = 'Dashboard_two.html';
+
+        } catch (error) {
+            console.log(error);
+        }
+
+
+
+    })
+    </script>
 </body>
 </html>
