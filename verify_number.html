@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify your phone number</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/assets/images/ChatGPT Image May 21, 2025, 12_33_55 PM.png">
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body{
+         width: 100%;
+        height: 100vh;
+        background-color: hsl(13, 31%, 94%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .container{
+        height: fit-content;
+        width: 30%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+        font-family: "Red Hat Text", sans-serif;
+    }
+    img{
+        display: inline;
+        border-radius: 50%;
+        width: 20%;
+        margin: 20px 0;
+    }
+    .otp-section{
+        height: fit-content;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: hsl(13, 31%, 94%);
+        border-radius: 15px;
+        box-shadow: 0 0 10px hsl(14, 25%, 72%);
+        padding: 20px;
+    }
+    legend{
+        transition: 
+        color 0.3s ease,
+        text-shadow 0.3s ease,
+        transform 0.3s ease;
+        display: inline-block;
+        transform: translateY(0);
+        color: hsl(14, 65%, 9%);
+    }
+    fieldset{
+        border-radius: 10px;
+        margin: 15px 0;
+        width: 100%;
+        height: 20px;
+        padding-top: 30px;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    fieldset:focus-within{
+        box-shadow: 0 0 5px hsl(14, 86%, 42%);
+        border: none;
+    }
+    fieldset:focus-within legend {
+    color: hsl(14, 86%, 42%);
+    font-weight: 500;
+    box-shadow: 0 0 10px white;
+    transform: translateY(-10px);
+    }
+    span{
+        display: inline-block;
+    }
+    fieldset:focus-within span{
+        display: none;
+    }
+    input{
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+        background-color: transparent;
+        outline: none;
+        border: none;
+        padding-left: 10px;
+        font-family: "Red Hat Text", sans-serif;
+        display: inline-block;
+        margin-top: -50px;
+        padding-top: 30px;
+    }
+    p{
+        font-size: 14px;
+        font-weight: 500;
+        color: black;
+    }
+    button{
+        width: 80%;
+        margin: 10px auto;
+        margin-top: 30px;
+        display: block;
+        padding: 10px;
+        border: none;
+        color: hsl(14, 65%, 9%);
+        background-color: hsl(14, 78%, 52%);
+        border-radius: 20px;
+        cursor: pointer;
+        font-family: "Red Hat Text", sans-serif;
+        font-weight: 500;
+    }
+    button:hover{
+        background-color: hsl(14, 65%, 9%);
+        color: hsl(14, 78%, 52%);
+        box-shadow: 0 0 10px hsl(14, 86%, 42%);
+    }
+    h1{
+        font-size: 30px;
+        text-align: center;
+    }
+    @media (max-width: 768px){
+        .container{
+            width: 90%;
+        }
+    }
+    @media (max-width: 898px){
+        .container{
+            width: 70%;
+        }
+    }
+</style>
+<body>
+    <div class="container">
+        <img src="/assets/images/WhatsApp Image 2025-05-21 at 14.08.14_c69d5989.jpg" alt="">
+        <div class="otp-section">
+            <h1>Phone Number Verification</h1>
+            <p>Enter the OTP sent to your Phone Number.</p>
+            
+            <fieldset>
+                <legend>OTP<span>*</span></legend>
+                <input class="input" type="email" placeholder="Enter the six six-digits OTP">
+            </fieldset>
+
+            <button>Submit</button>
+        </div>  
+    </div>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/assets/images/ChatGPT Image May 21, 2025, 12_33_55 PM.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            width: 100%;
+            height: 100vh;
+            background-color: hsl(13, 31%, 94%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 40%;
+            height: fit-content;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Red Hat Text", sans-serif;
+            box-shadow: 0 0 15px hsl(14, 25%, 72%);
+            border-radius: 15px;
+        }
+        .sign-up-page {
+            width: 100%;
+            height: 100%;
+            background-color: hsl(13, 31%, 94%);
+            padding: 20px;
+            padding-top: 0px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+        legend {
+            transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+            transform: translateY(0);
+            color: hsl(14, 65%, 9%)
+        }
+        fieldset {
+            border-radius: 10px;
+            margin: 15px 0;
+            width: 100%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        fieldset:focus-within {
+            box-shadow: 0 0 5px hsl(14, 86%, 42%);
+            border: none;
+        }
+        fieldset:focus-within legend {
+            color: hsl(14, 86%, 42%);
+            font-weight: 500;
+            box-shadow: 0 0 10px white;
+            transform: translateY(-10px);
+        }
+        span {
+            display: inline-block;
+        }
+        fieldset:focus-within span {
+            display: none;
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 5px;
+            background-color: transparent;
+            outline: none;
+            border: none;
+            font-family: "Red Hat Text", sans-serif;
+        }
+        img {
+            display: block;
+            margin: 0 auto;
+        }
+        button {
+            width: 80%;
+            margin: 20px auto;
+            display: block;
+            padding: 10px;
+            border: none;
+            color: hsl(14, 65%, 9%);
+            background-color: hsl(14, 78%, 52%);
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: "Red Hat Text", sans-serif;
+            font-weight: 500;
+        }
+        button:hover {
+            background-color: hsl(14, 65%, 9%);
+            color: hsl(14, 78%, 52%);
+            box-shadow: 0 0 10px hsl(14, 86%, 42%);
+        }
+        button:disabled {
+            background-color: hsl(14, 78%, 70%);
+            cursor: not-allowed;
+        }
+        p {
+            text-align: center;
+            font-size: 18px;
+        }
+        .sign-in {
+            font-size: 16px;
+            margin: 8px 0;
+            color: hsl(14, 78%, 52%);
+        }
+        input {
+            background-color: transparent;
+            margin-top: -5px;
+        }
+        h1 {
+            margin: 0 auto;
+        }
+        .error-message {
+            color: hsl(14, 86%, 42%);
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+            display: none;
+        }
+        .error-message.show {
+            display: block;
+        }
+        @media (max-width: 988px) {
+            .container {
+                width: 90%;
+            }
+        }
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                border-radius: 15px;
+            }
+            .image-page {
+                display: none;
+            }
+            .sign-up-page {
+                width: 100%;
+                border-radius: 15px;
+            }
+            button {
+                margin: 10px auto;
+            }
+            .sign-in {
+                margin: 2px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sign-up-page">
+            <h1>Sign Up</h1>
+            <div class="error-message" id="error-message"></div>
+            <form id="signup-form">
+                <fieldset>
+                    <legend>First Name<span>*</span></legend>
+                    <input class="input" type="text" name="first_name" placeholder="John" required>
+                </fieldset>
+                <fieldset>
+                    <legend>Last Name<span>*</span></legend>
+                    <input class="input" type="text" name="last_name" placeholder="Doe" required>
+                </fieldset>
+                <fieldset>
+                    <legend>Email<span>*</span></legend>
+                    <input class="input" type="email" name="email" placeholder="name@example.com" required>
+                </fieldset>
+                 <fieldset>
+                    <legend>Phone<span>*</span></legend>
+                    <input class="input" type="text" name="phone" placeholder="081523432342" required>
+                </fieldset>
+                <fieldset style="padding: 5px 0; display: flex; justify-content: center; align-items: center;">
+                    <legend>Gender<span>*</span></legend>
+                    <div style="display: flex; gap: 20px; align-items: center; justify-content: center ;">
+                        <label for="male">Male</label>
+                        <input type="radio" id="male" name="gender" value="male" style="width: 20px; height: 20px;">
+                        <label for="female">Female</label>
+                        <input type="radio" id="female" name="gender" value="female" style="width: 20px; height: 20px;">
+                        <label for="RNS">Rather not Say</label>
+                        <input type="radio" id="RNS" name="gender" value="RNS" style="width: 20px; height: 20px;">
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Password<span>*</span></legend>
+                    <input class="input" type="password" name="password" placeholder="Enter your Password" required>
+                </fieldset>
+                <fieldset>
+                    <legend>Confirm Password<span>*</span></legend>
+                    <input class="input" type="password" name="password_confirmation" placeholder="Enter the same password" required>
+                </fieldset>
+                <button type="submit" class="submit">Create an Account</button>
+            </form>
+            <p class="sign-in">
+                Already have an account? 
+                <a href="/login.html">Login</a>
+            </p>
+            <p>©2025 Bloggz. All Rights Reserved.</p>
+        </div>
+    </div>
+    <script>
+        const form = document.getElementById('signup-form');
+        const submitButton = document.querySelector('.submit');
+        const errorMessage = document.getElementById('error-message');
+        const emailInput = form.querySelector('input[name="email"]');
+        const phoneInput = form.querySelector('input[name="phone"]');
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.add('show');
+            submitButton.disabled = true;
+        }
+
+        function clearError() {
+            errorMessage.textContent = '';
+            errorMessage.classList.remove('show');
+            submitButton.disabled = false;
+        }
+
+        // Email validation
+        async function validateEmail(email) {
+            try {
+                const response = await fetch("https://core.hisend.hunnovate.com/api/v1/projects/e-_commerce_powered_by_h_i-send/auth/user?api_key=v2kLi82gZF8ROPq0bbkhILnK", {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify({ email }),
+                });
+
+                const result = await response.json();
+                if (!response.ok && result.message?.includes('email')) {
+                    showError('This email is already registered. Please use a different email.');
+                    return false;
+                }
+                return true;
+            } catch (error) {
+                showError('Failed to validate email. Please check your internet connection.');
+                return false;
+            }
+        }
+
+        // Phone validation
+        async function validatePhone(phone) {
+            try {
+                const response = await fetch("https://core.hisend.hunnovate.com/api/v1/projects/e-_commerce_powered_by_h_i-send/auth/user?api_key=v2kLi82gZF8ROPq0bbkhILnK", {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                    },
+                    body: JSON.stringify({ phone }),
+                });
+
+                const result = await response.json();
+                if (!response.ok && result.message?.includes('phone')) {
+                    showError('This phone number is already registered. Please use a different phone number.');
+                    return false;
+                }
+                return true;
+            } catch (error) {
+                showError('Failed to validate phone number. Please check your internet connection.');
+                return false;
+            }
+        }
+
+        emailInput.addEventListener('blur', async () => {
+            const email = emailInput.value;
+            if (email) {
+                await validateEmail(email);
+            } else {
+                clearError();
+            }
+        });
+
+        phoneInput.addEventListener('blur', async () => {
+            const phone = phoneInput.value;
+            if (phone) {
+                await validatePhone(phone);
+            } else {
+                clearError();
+            }
+        });
+
+        const passwordInput = form.querySelector('input[name="password"]');
+        const confirmPasswordInput = form.querySelector('input[name="password_confirmation"]');
+
+        function validatePasswordInput() {
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+            clearError();
+
+            if (password && confirmPassword && password !== confirmPassword) {
+                showError('Passwords do not match.');
+            } else if (password && password.length < 8) {
+                showError('Password must be at least 8 characters long.');
+            } else if (password) {
+                const hasUpperCase = /[A-Z]/.test(password);
+                const hasLowerCase = /[a-z]/.test(password);
+                const hasNumber = /\d/.test(password);
+                if (!hasUpperCase || !hasLowerCase || !hasNumber) {
+                    showError('Password must contain at least one uppercase letter, one lowercase letter, one number');
+                }
+            }
+        }
+
+        passwordInput.addEventListener('input', validatePasswordInput);
+        confirmPasswordInput.addEventListener('input', validatePasswordInput);
+
+        // Form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitButton.disabled = true;
+
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            // Validate email and phone before submitting
+            const isEmailValid = await validateEmail(data.email);
+            const isPhoneValid = await validatePhone(data.phone);
+            if (!isEmailValid || !isPhoneValid) {
+                submitButton.disabled = true;
+                return;
+            }
+
+            try {
+                const response = await fetch("https://core.hisend.hunnovate.com/api/v1/projects/e-_commerce_powered_by_h_i-send/auth/sign-up?api_key=v2kLi82gZF8ROPq0bbkhILnK", {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await response.json();
+                if (!response.ok) {
+                    if (result.message?.includes('email')) {
+                        showError('This email is already registered. Please use a different email.');
+                    } else if (result.message?.includes('phone')) {
+                        showError('This phone number is already registered. Please use a different phone number.');
+                    } else {
+                        showError(result.message || 'Failed to create account. Please try again.');
+                    }
+                    submitButton.disabled = false;
+                    return;
+                }
+
+                localStorage.setItem('token', result.data.token);
+                alert('Account created successfully!');
+                window.location.href = 'Dashboard_two.html';
+            } catch (error) {
+                console.error('Error:', error.message);
+                showError('Failed to connect to the server. Please check your internet connection and try again.');
+                submitButton.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

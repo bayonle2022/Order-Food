@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/assets/images/ChatGPT Image May 21, 2025, 12_33_55 PM.png">
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body{
+        width: 100%;
+        height: 100vh;
+        background-color: hsl(13, 31%, 94%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .main-container{
+        width: 60%;
+    }
+    .container{
+        width: 100%;
+        height: fit-content;
+        background-color: hsl(13, 31%, 94%);
+        box-shadow: 0 0 10px hsl(14, 25%, 72%);
+        border-radius: 15px;
+        font-family: "Red Hat Text", sans-serif;
+        padding: 20px;
+        color: hsl(13, 31%, 94%);
+    }
+    .name-section{
+        width: 100%;
+        height: 65px;
+        background-color: hsl(14, 65%, 9%);
+        padding: 10px;
+        margin: 20px 0;
+        border-radius: 10px;
+    }
+    .edit-name{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: -10px;
+    }
+    a, .span-email-name{
+        font-size: 16px;
+        color: hsl(14, 78%, 52%);
+    }
+    a:hover{
+        color: hsl(13, 83%, 61%);
+        text-decoration: none;
+    }
+    .name{
+        font-size: 24px;
+        font-weight: 600;
+    }
+    .email-section{
+        width: 100%;
+        height: 65px;
+        background-color: hsl(14, 65%, 9%);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        margin: 20px 0;
+        border-radius: 10px;
+    }
+    .verify-email-section{
+        width: 100%;
+        height: 65px;
+        background-color: hsl(14, 65%, 9%);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        margin: 20px 0;
+        border-radius: 10px;
+    } 
+    .phone-section{
+        width: 100%;
+        height: 65px;
+        background-color: hsl(14, 65%, 9%);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        margin: 20px 0;
+        border-radius: 10px;
+    }
+    .verification-section{
+        width: 100%;
+        height: 65px;
+        background-color: hsl(14, 65%, 9%);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        margin: 20px 0;
+        border-radius: 10px;
+    }
+    .password-section{
+        width: 100%;
+        height: 65px;
+        background-color: hsl(14, 65%, 9%);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        margin: 20px 0;
+        border-radius: 10px;
+    }
+    button{
+        display: block;
+        padding: 5px;
+        border: none;
+        color: hsl(14, 65%, 9%);
+        background-color: hsl(14, 78%, 52%);
+        border-radius: 3px;
+        cursor: pointer;
+        font-family: "Red Hat Text", sans-serif;
+        font-weight: 500;
+        border-radius: 10px;
+    }
+    button:hover{
+        background-color: hsl(14, 65%, 9%);
+        color: hsl(14, 78%, 52%);
+        box-shadow: 0 0 10px hsl(14, 86%, 42%);
+    }
+    span{
+        font-size: 22px;
+        font-weight: 500; 
+        color: hsl(14, 78%, 52%);  
+    }
+    h1{
+        font-weight: 600;
+        margin: 10px 0;
+    }
+    @media (max-width: 768px){
+        .main-container{
+            width: 90%;
+        }
+        h1{
+            font-size: 40px;
+        }
+    }
+
+</style>
+<body>
+    <div class="main-container">
+        <h1>PROFILE INFORMATION</h1>
+        <div class="container">
+
+            <div class="name-section">
+                <div class="edit-name">
+                    <p class="name-text">Name</p>
+                    <span class="name">Jane Doe</span>
+                </div>
+                <a href="">Edit name</a>
+            </div>
+
+            <div class="email-section">
+                <p class="email-text">E-mail</p>
+                <span class="email-name">name@example.com</span>
+            </div>
+
+            <div class="verify-email-section">
+                <div class="verify-text">
+                    <p class="email-text">Verify E-mail</p>
+                    <span class="span-email-name">name@example.com </span>
+                </div>
+                <div class="verify-email">
+                    <button class="verify-btn">Verify Now</button>
+                </div>
+            </div>
+
+            <div class="phone-section">
+                <p class="phone-number">Phone Number</p>
+                <span class="number">+234-123-4567-890</span>
+            </div>
+
+            <div class="verification-section">
+                <p class="email-text">Verify Phone Number</p>
+                <button class="verify-btn">Verify Now</button>
+            </div>
+
+            <div class="password-section">
+                <div class="change-text">
+                    <p class="password-text">Change your Passwords</p>
+                </div>
+                <div class="change-link">
+                    <a href="/changes_password.html">Change your password</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
