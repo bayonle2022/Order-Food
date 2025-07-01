@@ -1,0 +1,610 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: fit-content;
+  font-family: "Red Hat Text", sans-serif;
+  background-color: hsl(13, 31%, 94%);
+}
+
+.container {
+  width: 80%;
+  height: 80%;
+  display: flex;
+  justify-content: space-between;
+  margin: 50px auto;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.product-card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  animation: scaleFadeIn 0.6s ease-out both;
+}
+
+.dessert-name {
+  color: grey;
+  font-size: 14px;
+}
+
+.product-section {
+  width: 68%;
+}
+
+.product-section h2 {
+  margin-bottom: 30px;
+}
+
+.dessert-image {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.container button {
+  width: 70%;
+  padding: 8px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  margin: -30px auto 10px auto;
+  position: relative;
+  z-index: 999;
+  border-radius: 20px;
+  background-color: hsl(0, 0%, 100%);
+  box-shadow: 0px 0px 3px grey;
+  cursor: pointer;
+  font-family: "Red Hat Text", sans-serif;
+  font-weight: 500;
+  border: 1px solid white;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  color: hsl(14, 86%, 42%);
+  border: 1px solid hsl(14, 86%, 42%);
+  animation: pulseGlow 1s infinite;
+}
+
+button img {
+  margin-right: 10px;
+}
+
+.product-card h5 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.product-card p {
+  font-size: 20px;
+  font-weight: 700;
+  color: hsl(14, 86%, 42%);
+}
+
+.cart-section {
+  width: 30%;
+  height: fit-content;
+  background-color: hsl(0, 0%, 100%);
+  padding: 20px;
+  border-radius: 10px;
+  animation: slideInRight 0.8s ease-in-out;
+}
+
+.cart-section-1,
+.cart-section-2 {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+.cart-section-1 p {
+  font-size: 16px;
+  color: hsl(12, 20%, 44%);
+}
+
+.cart-section h2 {
+  margin-bottom: 20px;
+  color: hsl(14, 86%, 42%);
+}
+
+.new-box {
+  width: 100%;
+  height: fit-content;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-box {
+  width: 100%;
+  height: fit-content;
+  margin-top: -20px;
+}
+
+.delete {
+  height: 15px;
+  width: 15px;
+  padding: 2px;
+  border-radius: 50%;
+  border: thin solid black;
+  transition: all 0.3s ease;
+}
+
+.delete:hover {
+  background-color: black;
+  border-color: white;
+  cursor: pointer;
+  animation: pulseGlow 0.6s infinite;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: 700;
+  color: hsl(14, 86%, 42%);
+}
+
+.confirm-order {
+  margin: 15px auto;
+  width: 95%;
+  background-color: hsl(14, 86%, 42%);
+  padding: 10px;
+  color: hsl(13, 31%, 94%);
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.confirm-order:hover {
+  background-color: hsl(12, 89%, 36%);
+  color: hsl(13, 31%, 94%);
+}
+
+.increment:hover,
+.decrement:hover {
+  background-color: hsl(12, 89%, 36%);
+}
+
+.modal-window {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: rgba(0,0,0,0.5); 
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.order-confirmed {
+  width: 100%;
+  height: fit-content;
+  background-color: white;
+  margin: 30px 0;
+  border-radius: 15px;
+  border-radius: 20px;
+}
+
+.new-order {
+  width: 100%;
+  margin: 1px;
+  background-color: hsl(14, 86%, 42%);
+  border: none;
+  color: white;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+.new-order:hover {
+  background-color: hsl(12, 89%, 36%);
+  color: white;
+}
+
+.container-order-window {
+  background-color: white; 
+  min-height: 30%; 
+  max-height: 80vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 40%; 
+  padding: 30px; 
+  border-radius: 15px;  
+  font-family: 'Red Hat Text', sans-serif;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media(max-width: 858px) {
+  .container {
+    display: block;
+  }
+  .product-section {
+    width: 100%;
+  }
+  .product-card {
+    display: block;
+  }
+  .cart-section {
+    width: 100%;
+    margin-top: 20px;
+  }
+  .container-order-window {
+    width: 90%;
+  }
+}
+.dessert-image {
+  transition: transform 0.3s ease;
+}
+
+.dessert-image:hover {
+  transform: scale(1.05);
+}
+@keyframes scaleFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 5px rgba(255, 105, 57, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(255, 105, 57, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(255, 105, 57, 0.2);
+  }
+}
+
+  /*  header Section */
+  .header h1 {
+    color: white;
+    font-size: 30px;
+    font-weight: 500;
+    font-style: bold;
+    
+  }
+
+  .header {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+    padding: 0px 50px;
+    
+    background-color:   hsl(14, 65%, 9%);
+  }
+         .mobile-log {
+  display: none;
+  flex-direction: column;
+  background-color: hsl(14, 65%, 9%);
+  padding: 20px;
+}
+  .header button {
+
+    margin-top: 15px;
+    width: 100px;
+  }
+  .header-buttons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+
+  }
+  .login-btn{
+    background-color: hsl(14, 65%, 9%);
+    color: hsl(13, 31%, 94%);
+    padding: 10px;
+
+    border-radius: 20px;
+    border: 0;
+    font-family: "Red Hat Text", sans-serif;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    cursor: pointer;
+    
+  }
+  .hamburger{
+    display: none;
+  }
+  .started-btn{
+    background-color: hsl(0, 0%, 100%);
+    color: hsl(14, 65%, 9%);
+    padding: 10px;
+    
+    border-radius: 20px;
+    border: none;
+    font-family: "Red Hat Text", sans-serif;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+
+    cursor: pointer;
+  }
+  .contact-btn{
+    background-color: hsl(14, 65%, 9%);
+    color: hsl(13, 31%, 94%);
+    padding: 10px;
+    
+    border-radius: 20px;
+    border: none;
+    font-family: "Red Hat Text", sans-serif;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    
+    cursor: pointer;
+  }
+
+  .logo{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .cart{
+    width: 50px;
+    height: 50px;
+  margin-right: 30px;
+  border-radius: 100%;
+    display: flex;
+  
+  }
+  .cart span{
+  position: relative;left: 40px;top: 3px;
+  font-weight: 800;
+  color: ivory;
+  }
+
+  .cart-icon{
+
+  width: 30px;
+  color: ivory;
+  }
+
+
+
+  /* footer section */
+
+  .footer {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    
+    color: white;
+    
+    background-color:   hsl(14, 65%, 9%);
+  }
+  .footer p{
+    width: 100%;
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    font-style: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    
+
+
+  }
+  .contact-add{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 50px;
+    padding-top: 20px;
+    
+  }
+
+  /* Modal-alert */
+
+  .modal-alert {
+    width: 600px;
+    height: 400px;
+    align-content: center;
+    color: hsl(13, 31%, 94%);
+    background-color: hsl(14, 65%, 9%);
+    margin: 30px 0;
+    margin-left: 400px;
+    display: none;
+    flex-direction: column;
+  
+  }
+  .modal-alert button {
+    width: 150px;
+    height: 50px;
+    background-color: white;
+  margin: 50px auto 0 auto;
+    color: hsl(14, 65%, 9%);
+    border: none;
+    font-size: 20px;
+    font-weight: 600;
+    
+
+    transition: all 0.3s ease;
+  }
+  .modal-alert h1 {
+    color: hsl(13, 31%, 94%);
+    font-size: 30px;
+    font-weight: 500;
+    width: 80%;
+    font-style: bold;
+    margin-top: 50px;
+    margin-left: 50px;
+    text-align: center;
+  }
+  .modal-alert p{
+    color: hsl(13, 31%, 94%);
+    font-size: 20px;
+    font-weight: 300;
+    font-style: bold;
+    margin-top: 50px;
+    text-align: center;
+  }
+
+
+
+
+
+  /* responsivenss for header */
+  @media (max-width: 768px) {
+    .header {
+      padding: 0px 20px;
+      gap: 20px;
+    }
+    
+
+    .hamburger {
+     
+   
+    display: block;
+    width: 30px;
+    cursor: pointer;
+    }
+    .header h1 {
+      font-size: 25px;
+    }
+    .header-buttons {
+      gap: 20px;
+    }
+    /* .header button {
+      width: 80px;
+      font-size: 14px;
+      display: none;
+    } */
+
+     .header-buttons {
+    display: none;
+  }
+
+  .mobile-log.show {
+    display: flex;
+    height: 100%;
+  }
+    .logo {
+      width: 80px;
+      height: 80px;
+    }
+    .cart {
+      width: 40px;
+      height: 40px;
+      margin-right: 20px;
+    }
+    .mobile-header{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+
+    .mobile-log button{
+      margin-bottom:100px ;
+
+      background-color: none;
+      width: 200px;
+      border: none;
+      
+      
+
+    }
+   /* Animation keyframes */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .mobile-log button{
+    margin-bottom:200px ;
+    background-color: none;
+    border: none;
+  }
+  .footer p {
+    font-size: 14px;
+  
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* Add transition classes */
+.mobile-log {
+  display: none;
+  flex-direction: column;
+  background-color: hsl(14, 65%, 9%);
+  padding: 20px;
+  animation-duration: 0.4s;
+  animation-fill-mode: forwards;
+}
+
+.mobile-log.show {
+  display: flex;
+  animation-name: slideDown;
+}
+
+.mobile-log.hide {
+  animation-name: slideUp;
+}
+
+    }
+    .footer p {
+      font-size: 14px;
+    
+    }
+
+  
