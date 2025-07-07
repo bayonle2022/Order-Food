@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Settings Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #f2f2f2;
+      padding: 30px;
+    }
+
+    .settings-container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .settings-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .setting-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #fff;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      transition: 0.3s;
+    }
+
+    .setting-item:hover {
+      background-color: #f9f9f9;
+    }
+
+    .setting-label {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .setting-label img {
+      width: 28px;
+      height: 28px;
+    }
+
+    .setting-item button {
+      background-color: hsl(14, 80%, 40%);
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.3s;
+    }
+
+    .setting-item button:hover {
+      background-color: hsl(14, 80%, 35%);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="settings-container">
+    <h2 class="settings-title">Verification</h2>
+
+    <div class="setting-item">
+      <div class="setting-label">
+        <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="email icon">
+        <span>Verify Email</span>
+      </div>
+      <a href="enter_email.html"><button>Verify</button></a>
+    </div>
+
+    <div class="setting-item">
+      <div class="setting-label">
+        <img src="https://cdn-icons-png.flaticon.com/512/597/597177.png" alt="phone icon">
+        <span>Verify Phone</span>
+      </div>
+     <a href="enter_phone.html"> <button>Verify</button></a>
+    </div>
+
+    <div class="setting-item">
+      <div class="setting-label">
+        <img src="https://cdn-icons-png.flaticon.com/512/747/747545.png" alt="lock icon">
+        <span>Change Password</span>
+      </div>
+      <a href="new_password.html"><button>Change</button></a>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -252,6 +252,7 @@
       );
 
       const jsonData = await response.json();
+      const token = localStorage.setItem('token', jsonData.data.token);
 
       // 🧪 Log response details
       console.log("Response Status:", response.status);

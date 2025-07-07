@@ -66,9 +66,9 @@ dropdownButton.addEventListener("click", () => {
         });
 
         // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!dropdownButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
-                dropdownMenu.style.display = 'none';
-            }
-        });
+        // document.addEventListener('click', (e) => {
+        //     if (!dropdownButton.contains(e.target) && !dropdownMenu.contains(e.target)) {
+        //         dropdownMenu.style.display = 'none';
+        //     }
+        // });
 

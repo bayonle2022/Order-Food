@@ -315,7 +315,7 @@
             <div class="navbar">
                     <img src="assets/images/hamburger (1).png" alt="menu" id="hamburger">
                 <div id="dropdownButton">
-                    <h1>A</h1>
+                    <h1 class="username">A</h1>
                 </div>
             </div>
         </div>
@@ -335,11 +335,11 @@
                         </button>
                         <button class="btn">
                             <img src="assets/images/settings (1).png" alt="">
-                            <a href="#">Settings</a>
+                            <a href="settings.html">Settings</a>
                         </button>
-                        <button class="btn">
+                        <button type="submit" class="btn logout">
                             <img src="assets/images/logout.png" alt="">
-                            <a href="index.html">Logout</a>
+                            Logout
                         </button>
                         <button class="btn">
                             <img src="assets/images/home (2).png" alt="">
@@ -462,6 +462,114 @@
 
         </div>
     </main>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const fetchData = async function () {
+    try {
+      let url = "https://core.hisend.hunnovate.com/api/v1/projects/e-_commerce_powered_by_h_i-send/auth/user?api_key=v2kLi82gZF8ROPq0bbkhILnK";
+      const response = await fetch(url, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Accept': 'application/json',
+        }
+      });
+
+      const data = await response.json();
+      console.log("✅ User data:", data);
+      return data;
+
+    } catch (error) {
+      console.error("❌ Error fetching user:", error);
+    }
+  };
+
+  fetchData().then(res => {
+    let user = document.querySelector('.username');
+
+    if (!res || !res.data) {
+      user.textContent = "👤";
+      console.warn("⚠️ No user data found");
+      return;
+    }
+
+    let firstName = res.data.first_name;
+
+    if (user && firstName) {
+      user.textContent = firstName.charAt(0).toUpperCase();
+    } else {
+      user.textContent = "👤";
+      console.warn("⚠️ Missing first_name or username element");
+    }
+  });
+
+});
+
+
+
+document.querySelector('.logout').addEventListener('click', async (e) => {
+  e.preventDefault();
+
+  try {
+    const url = "https://core.hisend.hunnovate.com/api/v1/projects/e-_commerce_powered_by_h_i-send/auth/logout?api_key=v2kLi82gZF8ROPq0bbkhILnK";
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        'Accept': 'application/json',
+      }
+    });
+
+    const data = await response.json();
+    console.log("🔁 Logout response:", response.status, data);
+
+    if (!response.ok) throw new Error(data.message || "Logout failed");
+
+    // ✅ Sweet success
+    Swal.fire({
+      title: 'Logged Out!',
+      text: 'You have been successfully logged out.',
+      icon: 'success',
+      confirmButtonText: 'OK',
+      timer: 2000,
+      timerProgressBar: true,
+      showConfirmButton: false
+    });
+
+    localStorage.removeItem('token');
+
+    // Wait 2 seconds before redirecting
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 2000);
+
+  } catch (error) {
+    // ❌ Sweet error
+    Swal.fire({
+      title: 'Oops!',
+      text: 'Failed to log out. Please try again.',
+      icon: 'error',
+      confirmButtonText: 'OK'
+    });
+
+    console.error("Logout error:", error.message);
+  }
+});
+
+    
+    
+
+
+
+
+</script>
 </body>
 <script src="/dashboard.js"></script>
 </html>
