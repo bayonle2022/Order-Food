@@ -134,19 +134,74 @@
     }
 </style>
 <body>
+  <form id="otpForm">
     <div class="container">
-        <img src="/assets/images/WhatsApp Image 2025-05-21 at 14.08.14_c69d5989.jpg" alt="">
-        <div class="otp-section">
-            <h1>Email Verification</h1>
-            <p>Enter the OTP sent to your Email.</p>
+      <img src="/assets/images/WhatsApp Image 2025-05-21 at 14.08.14_c69d5989.jpg" alt="">
+      <div class="otp-section">
+        <h1>Email Verification</h1>
+        <p>Enter the OTP sent to your Email.</p>
 
-            <fieldset>
-                <legend>OTP<span>*</span></legend>
-                <input class="input" type="email" placeholder="Enter the six six-digits OTP">
-            </fieldset>
+        <fieldset>
+          <legend>OTP<span>*</span></legend>
+          <input id="otp" type="text" placeholder="Enter the 6-digit OTP" required />
+        </fieldset>
 
-            <button>Submit</button>
-        </div>
+        <button type="submit">Submit</button>
+      </div>
     </div>
+  </form>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    const form = document.getElementById('otpForm');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const otp = document.getElementById('otp').value.trim();
+      const email = localStorage.getItem('verifyingEmail');
+      const otp_reference = localStorage.getItem('otp_reference');
+
+      if (!otp || !email || !otp_reference) {
+        return Swal.fire("Missing Info", "OTP or reference is missing!", "warning");
+      }
+
+      try {
+        const res = await fetch("https://core.hisend.hunnovate.com/api/v1/projects/01jxj4dysa4mk23vyx92vgxh1t/auth/email/confirm", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+          },
+          body: JSON.stringify({
+            email,
+            otp,
+            otp_reference
+          })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.message || "OTP verification failed");
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Email Verified!',
+          text: data.message || 'Your email has been verified successfully!'
+        }).then(() => {
+          window.location.href = 'profile.html'; // redirect after success
+        });
+
+      } catch (err) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: err.message || 'Something went wrong!'
+        });
+      }
+    });
+  </script>
+</body>
+
 </body>
 </html>

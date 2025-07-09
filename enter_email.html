@@ -152,60 +152,69 @@
                </form>
         </div>
     </div>
-    <script>
-   const form = document.getElementById('verifyForm');
+   <script>
+  const form = document.getElementById('verifyForm');
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault(); // 🛑 Stop form from refreshing
 
-  const email = document.querySelector('input[type="email"]').value.trim();
-  const url = `https://core.hisend.hunnovate.com/api/v1/projects/e-_commerce_powered_by_h_i-send/auth/email/verify?api_key=v2kLi82gZF8ROPq0bbkhILnK&email=${encodeURIComponent(email)}`;
+    const email = document.getElementById('email').value.trim();
+    const token = localStorage.getItem('token');
 
-  try {
-    const res = await fetch(url, {
-      method: "GET", // 👈 Changed from POST to GET
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem('token')}`,
-        "Accept": "application/json"
-      }
-    });
-
-    const raw = await res.text();
-    console.log("Raw response from server:", raw);
-
-    let data;
-    try {
-      data = JSON.parse(raw);
-    } catch (err) {
-      throw new Error("Invalid response format from server.");
+    if (!email) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Email Required',
+        text: 'Please enter your email address.'
+      });
+      return;
     }
 
-    if (!res.ok) throw new Error(data.message || "Verification failed");
+    const url = "https://core.hisend.hunnovate.com/api/v1/projects/01jxj4dysa4mk23vyx92vgxh1t/auth/email/verify?api_key=v2kLi82gZF8ROPq0bbkhILnK"
+    try {
+      const res = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Accept": "application/json"
+        }
+      });
 
-    Swal.fire({
-      icon: 'success',
-      title: 'Verification Code Sent!',
-      text: data.message || 'Check your email for the OTP.',
-      timer: 2500,
-      showConfirmButton: false
-    });
+      const raw = await res.text();
+      console.log("🔍 Raw response:", raw);
 
-    localStorage.setItem('verifyingEmail', email);
+      let data;
+      try {
+        data = JSON.parse(raw);
+      } catch {
+        throw new Error("Invalid response format from server.");
+      }
 
-    setTimeout(() => {
-      window.location.href = "verify-otp.html";
-    }, 2500);
+      if (!res.ok) throw new Error(data.message || "Verification failed");
 
-  } catch (err) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: err.message || 'Something went wrong!'
-    });
-  }
-});
+      Swal.fire({
+        icon: 'success',
+        title: 'OTP Sent',
+        text: data.message || 'Check your email inbox.',
+        timer: 2500,
+        showConfirmButton: false
+      });
 
+      localStorage.setItem('verifyingEmail', email);
+      setTimeout(() => {
+        window.location.href = "verify-otp.html";
+      }, 2500);
 
-  </script>
+    } 
+    catch (err) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: err.message || 'Something went wrong.'
+      });
+    }
+  });
+</script>
+
 </body>
 </html>
