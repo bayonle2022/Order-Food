@@ -16,6 +16,7 @@
         background-color: #f4f4f4;
         font-family: "Segoe UI", sans-serif;
       }
+
       .profile-card {
         max-width: 600px;
         margin: 50px auto;
@@ -24,24 +25,29 @@
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         padding: 30px;
       }
+
       .profile-header {
         text-align: center;
         margin-bottom: 30px;
       }
+
       .btn-verify {
         margin-left: 10px;
         font-size: 14px;
       }
+
       .verified {
         color: green;
         font-weight: bold;
       }
+
       .not-verified {
         color: red;
         font-weight: bold;
       }
     </style>
   </head>
+
   <body>
     <div class="profile-card">
       <div class="profile-header">
@@ -73,7 +79,8 @@
         </p>
       </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./config.js"></script>
     <script>
       // 🔐 Protect page if token no dey
       if (!localStorage.getItem("token")) {
@@ -83,34 +90,53 @@
       }
 
       let currentUser = null;
-
-      async function fetchUserData() {
-        try {
-          const response = await fetch(
-            "https://core.hisend.hunnovate.com/api/v1/projects/01jxj4dysa4mk23vyx92vgxh1t/auth/user?api_key=v2kLi82gZF8ROPq0bbkhILnK",
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-                Accept: "application/json",
-              },
-            }
-          );
-
-          const result = await response.json();
-          if (!response.ok)
-            throw new Error(result.message || "Failed to fetch user");
-
-          currentUser = result.data;
+      axios
+        .get(
+          `${CONFIG.API_BASE_URL}/${CONFIG.PROJECT_ID}/auth/user?api_key=${CONFIG.API_KEY}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          currentUser = response.data.data;
           displayUser(currentUser);
-          // await verifyEmail();
-        } catch (err) {
-          Swal.fire(
-            "Error",
-            err.message || "Could not fetch user data",
-            "error"
-          );
-        }
-      }
+          // verifyEmail();
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+          Swal.fire("Error", "Could not fetch user data", "error");
+        });
+
+      // async function fetchUserData() {
+      //   try {
+      //     const response = await fetch(
+      //       "https://core.hisend.hunnovate.com/api/v1/projects/01jxj4dysa4mk23vyx92vgxh1t/auth/user?api_key=v2kLi82gZF8ROPq0bbkhILnK",
+      //       {
+      //         headers: {
+      //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+      //           Accept: "application/json",
+      //         },
+      //       }
+      //     );
+
+      //     const result = await response.json();
+      //     if (!response.ok)
+      //       throw new Error(result.message || "Failed to fetch user");
+
+      //     currentUser = result.data;
+      //     displayUser(currentUser);
+      //     // await verifyEmail();
+      //   } catch (err) {
+      //     Swal.fire(
+      //       "Error",
+      //       err.message || "Could not fetch user data",
+      //       "error"
+      //     );
+      //   }
+      // }
 
       function displayUser(user) {
         document.getElementById("firstName").textContent = user.first_name;
@@ -130,24 +156,25 @@
           user.phone_verified_at ? "verified" : "not-verified";
       }
 
-
-
       async function apiRequest(endpoint, method = "GET", body = null) {
         const headers = {
           "Content-Type": "application/json",
           Accept: "application/json",
-          "Api-Key": 'v2kLi82gZF8ROPq0bbkhILnK',
+          "Api-Key": "v2kLi82gZF8ROPq0bbkhILnK",
         };
 
         const token = localStorage.getItem("token");
         if (token) headers["Authorization"] = "Bearer " + token;
 
         try {
-          const response = await fetch('https://core.hisend.hunnovate.com/api/v1' + endpoint, {
-            method,
-            headers,
-            body: body ? JSON.stringify(body) : null,
-          });
+          const response = await fetch(
+            "https://core.hisend.hunnovate.com/api/v1" + endpoint,
+            {
+              method,
+              headers,
+              body: body ? JSON.stringify(body) : null,
+            }
+          );
 
           if (!response.ok) {
             const errorData = await response.json();
@@ -163,72 +190,67 @@
         }
       }
 
+      const verifyEmail = async () => {
+        try {
+          const response = await apiRequest(
+            `/otp?project_id=01jxj4dysa4mk23vyx92vgxh1t`,
+            "POST",
+            {
+              customer_identifier: currentUser.email,
+              channel: "email",
+            }
+          );
 
-   
+          const reference = response.data.reference;
+          sessionStorage.setItem("reset_reference", reference);
 
-      
+          const { isConfirmed, value: otp } = await Swal.fire({
+            title: "Enter OTP",
+            input: "text",
+            inputLabel: `OTP sent to ${currentUser.email}`,
+            inputPlaceholder: "Enter 6-digit code",
+            inputAttributes: {
+              maxlength: 6,
+              autocapitalize: "off",
+              autocorrect: "off",
+            },
+            showCancelButton: true,
+            confirmButtonText: "Verify OTP",
+          });
 
-     const verifyEmail = async () => {
-  try {
-    const response = await apiRequest(`/otp?project_id=01jxj4dysa4mk23vyx92vgxh1t`, "POST", {
-      customer_identifier: currentUser.email,
-      channel: "email"
-    });
+          if (!isConfirmed || !otp) return;
 
-    const reference = response.data.reference;
-    sessionStorage.setItem("reset_reference", reference);
+          // Now confirm the OTP
+          const query = new URLSearchParams({
+            otp,
+            reference,
+            customer_identifier: currentUser.email,
+          }).toString();
 
-    const { isConfirmed, value: otp } = await Swal.fire({
-      title: "Enter OTP",
-      input: "text",
-      inputLabel: `OTP sent to ${currentUser.email}`,
-      inputPlaceholder: "Enter 6-digit code",
-      inputAttributes: {
-        maxlength: 6,
-        autocapitalize: "off",
-        autocorrect: "off"
-      },
-      showCancelButton: true,
-      confirmButtonText: "Verify OTP"
-    });
+          const confirmRes = await apiRequest(`/otp/confirm?${query}`, "GET");
 
-    if (!isConfirmed || !otp) return;
+          Swal.fire(
+            "Success",
+            confirmRes.message || "Email verified successfully!",
+            "success"
+          ).then(() => {
+            window.location.reload();
+          });
+        } catch (err) {
+          Swal.fire("Error", err.message || "OTP process failed", "error");
+        }
+      };
 
-    // Now confirm the OTP
-   const query = new URLSearchParams({
-  otp,
-  reference,
-  customer_identifier: currentUser.email
-}).toString();
+      // if(!currentUser || !currentUser.email) {
+      //   // return Swal.fire("Error", "No email found for this user", "error");
+      //   console.error("No email found for this user");
+      //   return;
+      // }
 
-const confirmRes = await apiRequest(`/otp/confirm?${query}`, "GET");
+      // const email = currentUser.email;
+      // const url = "https://core.hisend.hunnovate.com/api/v1/projects/01jxj4dysa4mk23vyx92vgxh1t/auth/email/verify?api_key=v2kLi82gZF8ROPq0bbkhILnK";
 
-    Swal.fire("Success", confirmRes.message || "Email verified successfully!", "success").then(() => {
-      window.location.reload();
-    });
-
-  } catch (err) {
-    Swal.fire("Error", err.message || "OTP process failed", "error");
-  }
-};
-
-
-
-        // if(!currentUser || !currentUser.email) {
-        //   // return Swal.fire("Error", "No email found for this user", "error");
-        //   console.error("No email found for this user");
-        //   return;
-        // }
-
-        // const email = currentUser.email;
-        // const url = "https://core.hisend.hunnovate.com/api/v1/projects/01jxj4dysa4mk23vyx92vgxh1t/auth/email/verify?api_key=v2kLi82gZF8ROPq0bbkhILnK";
-
-        // console.log("Sending email verification for:", email);
-
-      
-
-
-
+      // console.log("Sending email verification for:", email);
 
       // async function verifyEmail(){
       //   if(!currentUser || !currentUser.email) {
